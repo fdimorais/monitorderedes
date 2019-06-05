@@ -36,7 +36,7 @@
 </div>
 </form>
 
-	<?php
+<?php
 function verificaStatus($ip){
 $ping = `ping $ip -n 1 -l 1`;
 if (preg_match("/bytes=/", $ping)) {
@@ -47,20 +47,33 @@ if (preg_match("/bytes=/", $ping)) {
 }
 ?>
 
-	
+<div class="row">
+<div class="col">
 <?php
 // SQL para selecionar informações na base de dados
 $sql = "select * from computadores";
 $result = $connect->query($sql);
 	while($dado = $result->fetch_assoc()) {
-		echo $dado['nome'] . " - " . $dado['ip'] . "- 
-		<a href='action/delete.php?id=".$dado['id']."'>Excluir</a>
-		"."<br>";
+		$nome = $dado['nome'];
+		$ip   = $dado['ip'];
+		$id   = $dado['id'];
+		if(verificaStatus($ip) == true)
+		{
+			echo $nome." - ".$ip. " | Online <br>";
+		}
+		else
+		{
+			echo $nome." - ".$ip. " | Offline <br>";
+		}
+		/*echo $nome . " - " . $ip . "- 
+		<a href='action/delete.php?id=".$id."'>Excluir</a>
+		"."<br>";*/
 	}
 ?>
+</div>
+</div>
 
-<div class="row">
-<div class="col">
+
 <div class="bloco online">
 <b>127.0.0.1</b><br>
 ONLINE
@@ -69,8 +82,7 @@ ONLINE
 <b>127.0.0.2</b><br>
 OFFLINE
 </div>
-</div>
-</div>
+
 
 </div>
 
