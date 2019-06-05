@@ -18,7 +18,7 @@
 <body>
 <div class="container">
 <h1>Monitor de Redes</h1>
-<form method="post" class="form-inline">
+<form method="post" class="form-inline" action="action/insert.php">
 <div class="row">
 
 <div class="col">
@@ -35,6 +35,17 @@
 
 </div>
 </form>
+
+<?php
+// SQL para selecionar informações na base de dados
+$sql = "select * from computadores";
+$result = $connect->query($sql);
+	while($dado = $result->fetch_assoc()) {
+		echo $dado['nome'] . " - " . $dado['ip'] . "- 
+		<a href='action/delete.php?id=".$dado['id']."'>Excluir</a>
+		"."<br>";
+	}
+?>
 
 <div class="row">
 <div class="col">
