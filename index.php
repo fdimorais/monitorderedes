@@ -36,6 +36,18 @@
 </div>
 </form>
 
+	<?php
+function verificaStatus($ip){
+$ping = `ping $ip -n 1 -l 1`;
+if (preg_match("/bytes=/", $ping)) {
+	return true;
+} else {
+	return false;
+}
+}
+?>
+
+	
 <?php
 // SQL para selecionar informações na base de dados
 $sql = "select * from computadores";
